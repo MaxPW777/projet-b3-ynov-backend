@@ -1,5 +1,6 @@
 services:
   api:
+    container_name: nestjs-backend
     build:
       context: .
       dockerfile: Dockerfile
@@ -16,6 +17,7 @@ services:
     depends_on:
       - database
   database:
+    container_name: Database
     image: postgres:17.2
     environment:
       POSTGRES_USER: postgres
