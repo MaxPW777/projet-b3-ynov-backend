@@ -1,0 +1,25 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./src:/home/node/src
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3001/health-check" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      - database
+  database:
+    image: postgres:17.2
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+        - "5432:5432"
