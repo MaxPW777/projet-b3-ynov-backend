@@ -3,8 +3,8 @@ import { CognitoIdentityServiceProvider } from 'aws-sdk';
 
 @Injectable()
 export class AuthService {
-  private cognito: CognitoIdentityServiceProvider;
-  private clientId: string;
+  private readonly cognito: CognitoIdentityServiceProvider;
+  private readonly clientId: string;
 
   constructor() {
     this.cognito = new CognitoIdentityServiceProvider({ region: 'eu-west-3' });
