@@ -18,10 +18,12 @@ services:
       - database
   database:
     container_name: Database
-    image: postgres:17.2
+    image: postgis/postgis:latest
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
     ports:
         - "5432:5432"
