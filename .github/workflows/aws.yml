@@ -28,7 +28,9 @@ name: Deploy to Amazon ECS
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "fix/github-actions" ]
+  pull_request:
+    branches: [ "main", "fix/github-actions" ]
 
 env:
   AWS_REGION: eu-west-3
@@ -39,6 +41,7 @@ env:
   CONTAINER_NAME: server                   # Name of the container in task definition
 
 permissions:
+  oidc-token: write
   contents: read
 
 jobs:
@@ -53,18 +56,20 @@ jobs:
 
       - name: Debug OIDC Token
         run: |
-          echo "Fetching OIDC Token..."
+          echo "Checking OIDC Token..."
           curl -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-            "$ACTIONS_ID_TOKEN_REQUEST_URL" > oidc-token.json || echo "Failed to fetch OIDC token"
-          cat oidc-token.json || echo "OIDC token missing"
+               "$ACTIONS_ID_TOKEN_REQUEST_URL"
 
       #  Authenticate with AWS using OIDC
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::989418411786:role/GitHubActionsECRPushRole
+          role-to-assume: arn:aws:iam::989418411786:role/ECR-ECS-Full-Access
           role-session-name: GitHubActions
           aws-region: eu-west-3
+
+      - name: Debug AWS Credentials
+        run: aws sts get-caller-identity
 
       #  Log in to Amazon ECR
       - name: Login to Amazon ECR
