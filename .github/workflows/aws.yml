@@ -37,7 +37,6 @@ env:
   ECR_REPOSITORY: 989418411786.dkr.ecr.eu-west-3.amazonaws.com/b3-dating-app/server
   ECS_SERVICE: nest-server                 # Amazon ECS service name
   ECS_CLUSTER: b3-dating-app               # Amazon ECS cluster name (should be the short name, not the full ARN)
-  ECS_TASK_DEFINITION: arn:aws:ecs:eu-west-3:989418411786:task-definition/b3-dating-app-backend:8 # Path to the ECS task definition JSON file
   CONTAINER_NAME: server                   # Name of the container in task definition
 
 permissions:
@@ -96,7 +95,7 @@ jobs:
       - name: Deploy Amazon ECS Task Definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          task-definition: arn:aws:ecs:eu-west-3:989418411786:task-definition/b3-dating-app-backend
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
