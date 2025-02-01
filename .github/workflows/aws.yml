@@ -61,6 +61,9 @@ jobs:
           role-session-name: GitHubActions
           aws-region: eu-west-3
 
+      - name: Debug AWS Credentials
+        run: aws sts get-caller-identity
+
       #  Log in to Amazon ECR
       - name: Login to Amazon ECR
         id: login-ecr
