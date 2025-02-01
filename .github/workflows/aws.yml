@@ -29,6 +29,8 @@ name: Deploy to Amazon ECS
 on:
   push:
     branches: [ "main", "fix/github-actions" ]
+  pull_request:
+    branches: [ "main", "fix/github-actions" ]
 
 env:
   AWS_REGION: eu-west-3
