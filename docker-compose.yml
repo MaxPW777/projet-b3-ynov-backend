@@ -5,17 +5,18 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3001:3001"
+      - "3000:3000"
     volumes:
       - ./src:/usr/src/app/src
-      - ./src:/home/node/src
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:3001/health-check" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/health-check" ]
       interval: 10s
       timeout: 5s
       retries: 5
     depends_on:
-      - database
+      database:
+        condition: service_healthy
+
   database:
     container_name: Database
     image: postgis/postgis:latest
@@ -26,4 +27,9 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
     ports:
-        - "5432:5432"
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
