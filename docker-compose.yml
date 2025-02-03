@@ -5,11 +5,11 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "8080:8080"
     volumes:
       - ./src:/usr/src/app/src
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:3000/health-check" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/health-check" ]
       interval: 10s
       timeout: 5s
       retries: 5
