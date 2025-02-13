@@ -27,8 +27,8 @@ export class Preference {
   @Column({ type: 'int', nullable: true })
   type: number;
 
-  @Column({ type: 'int', nullable: true })
-  user_id: number;
+  @Column({ type: 'varchar', nullable: true })
+  user_id: string;
 
   @ManyToMany(() => Interest, (interest) => interest.preferences)
   @JoinTable({

@@ -1,6 +1,15 @@
-import { Controller, Get, Put, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Put,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { PreferenceService } from './preference.service';
+import { UpdatePreferenceDto } from './update-preference.dto';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('preferences')
@@ -15,15 +24,18 @@ export class PreferenceController {
   @Get()
   public async getPreferences(@Req() req: any) {
     const { userId } = req.user;
+    console.log(req.user);
     return await this.preferenceService.getPreferences(userId);
   }
 
-  @Put()
-  public async updatePreferences(@Req() req: any) {
-    const { userId, username } = req.user;
+  @Put('/:id')
+  public async updatePreferences(
+    @Param('id') id: number,
+    @Body() body: UpdatePreferenceDto,
+  ) {
     return await this.preferenceService.updatePreferenceInterests(
-      userId,
-      username,
+      id,
+      body.data,
     );
   }
 }

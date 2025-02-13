@@ -20,7 +20,6 @@ export class PreferenceService {
   ): Promise<Preference> {
     const preference = await this.preferenceRepository.findOne({
       where: { id: preferenceId },
-      relations: ['interests'],
     });
     if (!preference) {
       throw new Error('Preference not found');
@@ -43,11 +42,10 @@ export class PreferenceService {
     return await this.preferenceRepository.save(preference);
   }
 
-  public async getPreferences(user_id: any): Promise<Preference[]> {
-    console.log(user_id.user);
+  public async getPreferences(user_id: string): Promise<Preference[]> {
+    console.log(user_id);
     return await this.preferenceRepository.find({
       where: { user_id },
-      relations: ['interests', 'interests.interest'],
     });
   }
 
