@@ -30,6 +30,7 @@
     "@types/passport-jwt": "^4.0.1",
     "aws-sdk": "^2.1692.0",
     "axios": "^1.7.9",
+    "class-validator": "^0.14.1",
     "dotenv": "^16.4.7",
     "jwk-to-pem": "^2.0.7",
     "mysql2": "^3.12.0",
