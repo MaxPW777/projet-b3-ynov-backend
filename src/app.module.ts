@@ -3,21 +3,24 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CognitoStrategy } from './auth/cognito.strategy';
 import { AuthController } from './auth/auth.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Constants } from './constants';
 import { AuthModule } from './auth/auth.module';
 import { PreferenceModule } from './preferences/preference.module';
+import { Constants } from './constants';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserProfile } from './entities/user-profile.entity';
+import { Preference } from './entities/preference.entity';
+import { Interest } from './entities/interest.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: Constants.DATABASE_HOST,
-      port: 5432,
+      port: Constants.DATABASE_PORT,
       username: Constants.DATABASE_USER,
       password: Constants.DATABASE_PASSWORD,
-      entities: ['/**/*.entity.js'],
-      database: 'postgres',
+      entities: [Interest, Preference, UserProfile],
+      database: Constants.DATABASE_NAME,
       synchronize: true,
     }),
     AuthModule,
