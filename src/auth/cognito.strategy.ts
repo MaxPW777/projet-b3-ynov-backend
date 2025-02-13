@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import * as jwkToPem from 'jwk-to-pem';
+import jwkToPem from 'jwk-to-pem';
 import * as jwt from 'jsonwebtoken';
 import axios from 'axios';
 
