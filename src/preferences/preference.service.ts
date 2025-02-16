@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Preference } from '../entities/preference.entity';
-import { Interest } from '../entities/interest.entity';
+import { HttpRequestDto } from '../common/dto/http-request.dto';
+import { Preference } from '../common/entities/preference.entity';
+import { Interest } from '../common/entities/interest.entity';
 
 @Injectable()
 export class PreferenceService {
@@ -42,10 +43,9 @@ export class PreferenceService {
     return await this.preferenceRepository.save(preference);
   }
 
-  public async getPreferences(user_id: string): Promise<Preference[]> {
-    console.log(user_id);
+  public async getPreferences(req: HttpRequestDto): Promise<Preference[]> {
     return await this.preferenceRepository.find({
-      where: { user_id },
+      where: { user_id: req.user.userId },
     });
   }
 

@@ -9,7 +9,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { PreferenceService } from './preference.service';
-import { UpdatePreferenceDto } from './update-preference.dto';
+import { HttpRequestDto } from '../common/dto/http-request.dto';
+import { UpdatePreferenceDto } from './dto/update-preference.dto';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('preferences')
@@ -22,10 +23,8 @@ export class PreferenceController {
   }
 
   @Get()
-  public async getPreferences(@Req() req: any) {
-    const { userId } = req.user;
-    console.log(req.user);
-    return await this.preferenceService.getPreferences(userId);
+  public async getPreferences(@Req() req: HttpRequestDto) {
+    return await this.preferenceService.getPreferences(req);
   }
 
   @Put('/:id')

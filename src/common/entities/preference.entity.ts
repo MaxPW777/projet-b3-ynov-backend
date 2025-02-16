@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Interest } from './interest.entity';
-import { RelationshipTypeEnum } from '../preferences/relationship-type.enum';
+import { RelationshipTypeEnum } from '../../preferences/enums/relationship-type.enum';
 
 @Entity('preferences')
 export class Preference {

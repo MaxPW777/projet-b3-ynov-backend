@@ -7,9 +7,9 @@ import { AuthModule } from './auth/auth.module';
 import { PreferenceModule } from './preferences/preference.module';
 import { Constants } from './constants';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserProfile } from './entities/user-profile.entity';
-import { Preference } from './entities/preference.entity';
-import { Interest } from './entities/interest.entity';
+import { UserProfile } from './common/entities/user-profile.entity';
+import { Interest } from './common/entities/interest.entity';
+import { Preference } from './common/entities/preference.entity';
 
 @Module({
   imports: [
