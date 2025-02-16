@@ -15,7 +15,7 @@ describe('AuthService', () => {
   it('should register a new user', async () => {
     const body = {
       username: 'testuser',
-      password: 'password',
+      password: 'password', // NOSONAR
       email: 'test@example.com',
     };
     const signUpResponse = { UserSub: '12345' };
@@ -30,7 +30,7 @@ describe('AuthService', () => {
   it('should throw error if registration fails', async () => {
     const body = {
       username: 'testuser',
-      password: 'password',
+      password: 'password', // NOSONAR
       email: 'test@example.com',
     };
     jest.spyOn(cognito, 'signUp').mockReturnValue({
