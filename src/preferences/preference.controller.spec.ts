@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PreferenceController } from './preference.controller';
 import { PreferenceService } from './preference.service';
-import { UpdatePreferenceDto } from './update-preference.dto';
 import { APP_GUARD } from '@nestjs/core';
 import { Preference } from '../common/entities/preference.entity';
 import { HttpRequestDto } from '../common/dto/http-request.dto';
+import { UpdatePreferenceDto } from './dto/update-preference.dto';
 
 describe('PreferenceController', () => {
   let controller: PreferenceController;
