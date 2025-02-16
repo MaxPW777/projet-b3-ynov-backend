@@ -1,9 +1,13 @@
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Preference } from '../entities/preference.entity';
-import { Interest } from '../entities/interest.entity';
 import { Repository } from 'typeorm';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PreferenceService } from './preference.service';
+import {
+  HttpRequestDto,
+  UserCredentialsDto,
+} from '../common/dto/http-request.dto';
+import { Preference } from '../common/entities/preference.entity';
+import { Interest } from '../common/entities/interest.entity';
 
 describe('PreferenceService', () => {
   let service: PreferenceService;
@@ -81,8 +85,15 @@ describe('PreferenceService', () => {
     const preferences = [new Preference()];
     jest.spyOn(preferenceRepository, 'find').mockResolvedValue(preferences);
 
-    // If your service logs user_id.user, consider updating the service or passing an object.
-    const result = await service.getPreferences('user1');
+    const user: UserCredentialsDto = {
+      userId: 'user1',
+      username: 'user1',
+      roles: [],
+    };
+
+    const req = { user } as HttpRequestDto;
+
+    const result = await service.getPreferences(req);
     expect(result).toBe(preferences);
   });
 

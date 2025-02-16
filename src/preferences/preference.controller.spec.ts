@@ -3,7 +3,8 @@ import { PreferenceController } from './preference.controller';
 import { PreferenceService } from './preference.service';
 import { UpdatePreferenceDto } from './update-preference.dto';
 import { APP_GUARD } from '@nestjs/core';
-import { Preference } from '../entities/preference.entity';
+import { Preference } from '../common/entities/preference.entity';
+import { HttpRequestDto } from '../common/dto/http-request.dto';
 
 describe('PreferenceController', () => {
   let controller: PreferenceController;
@@ -52,7 +53,7 @@ describe('PreferenceController', () => {
     jest.spyOn(service, 'getPreferences').mockResolvedValue(preferences);
 
     // Pass a fake request object with a user property
-    const req = { user: { userId: 'user1' } };
+    const req = { user: { userId: 'user1' } } as HttpRequestDto;
     const result = await controller.getPreferences(req);
     expect(result).toBe(preferences);
   });
