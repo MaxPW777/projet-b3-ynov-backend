@@ -28,6 +28,7 @@ CREATE TABLE interests (
 -- ======================================
 CREATE TABLE user_profiles (
   id SERIAL PRIMARY KEY,
+  user_id VARCHAR(255) UNIQUE,
   name VARCHAR(255),
   surname VARCHAR(255),
   location geography(Point, 4326), -- PostGIS type
@@ -57,9 +58,9 @@ CREATE TABLE prompts (
 --    Many-to-one to interests
 -- ======================================
 CREATE TABLE preferences_interests (
-  id SERIAL PRIMARY KEY,
   preference_id INT NOT NULL,
   interest_id INT NOT NULL,
+  PRIMARY KEY (preference_id, interest_id),
   CONSTRAINT fk_prefsint_preferences
     FOREIGN KEY (preference_id)
     REFERENCES preferences (id),
@@ -148,3 +149,4 @@ CREATE TABLE swipes (
   2. If pack_ids references an actual "packs" table, consider storing
      them in a separate table with a proper FK, rather than a varchar field.
 */
+

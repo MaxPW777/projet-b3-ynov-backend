@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import * as jwkToPem from 'jwk-to-pem';
+import * as jwkPem from 'jwk-to-pem';
 import * as jwt from 'jsonwebtoken';
 import axios from 'axios';
 
@@ -29,7 +29,7 @@ export class CognitoStrategy extends PassportStrategy(Strategy, 'jwt') {
     const url = `${this.cognitoIssuer}/.well-known/jwks.json`;
     const { data } = await axios.get(url);
     data.keys.forEach((key) => {
-      this.pems[key.kid] = jwkToPem(key);
+      this.pems[key.kid] = jwkPem(key);
     });
   };
 
